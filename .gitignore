@@ -1,0 +1,16 @@
+# Visual Studio build folders #
+bin/
+obj/
+
+# MonoDevelop files
+*.pidb
+
+# Mac files 
+.DS_Store
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
