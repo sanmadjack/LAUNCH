@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="programs.xsd">
+	<program name="fs2_open">
+		<label lang="EN">Freespace 2 SCP</label>
+		<tab name="video">
+      <label lang="EN">Video</label>
+      <fuck></fuck>
+    </tab>
+	</program>
+</programs>
+<!--
+<games>
+	<game name="fs2_open" title="Freespace 2 SCP">
+		<tab name="video" title="Video">
+			<rows>
+				<resolution_combo>
+					<flag name="-res" />
+				</resolution_combo>
+				<combo name="detail" title="General Graphics Settings">
+					<option value="" title="Terrible" />
+					<option value="" title="Low" />
+					<option value="" title="Medium" />
+					<option value="" title="High" default="true" />
+				</combo>
+				<check name="windowed" title="Run In A Window">
+					<flag name="-window" />
+				</check>
+				<check name="show_fps" title="Show the number of frames per second">
+					<flag name="-fps" />
+				</check>
+			</rows>
+		</tab>
+		<tab name="graphics" title="Graphics">
+			<columns>
+				<check name="spec" title="Enable shiny ships">
+					<flag name="-spec" />
+				</check>
+				<check name="env" title="Make the windows reflect space">
+					<flag name="-env" />
+				</check>
+				<check name="glow" title="Make the ships glow in all the right places">
+					<flag name="-glow" />
+				</check>
+			</columns>
+		</tab>
+		<tab name="mods" title="MODs">
+			<rows>
+			
+			</rows>
+		</tab>
+	</game>
+</games>
+-->
