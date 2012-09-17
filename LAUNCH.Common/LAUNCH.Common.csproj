@@ -70,6 +70,7 @@
   <ItemGroup>
     <None Include="programs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="programs.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

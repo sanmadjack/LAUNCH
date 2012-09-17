@@ -4,7 +4,9 @@
 		<label lang="EN">Freespace 2 SCP</label>
 		<tab name="video">
       <label lang="EN">Video</label>
-      <fuck></fuck>
+      <vertical>
+        <slider name="Slider"/>
+      </vertical>
     </tab>
 	</program>
 </programs>
