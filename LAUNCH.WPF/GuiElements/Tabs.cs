@@ -12,9 +12,14 @@ namespace LAUNCH.WPF {
         }
 
         public void addNewTab(String name, IElement element) {
-            UIElement uie = element as UIElement;
+            if (element == null)
+                throw new ArgumentNullException("Element is null, fucker! What the fuck!");
 
+            UIElement uie = element as UIElement;
             this.AddChild(element);
+
+            this.TabIndex = 0;
+
         }
 
 

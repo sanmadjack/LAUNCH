@@ -5,7 +5,18 @@
 		<tab name="video">
       <label lang="EN">Video</label>
       <vertical>
-        <slider name="Slider"/>
+        <boxthing>
+          <label lang="EN">Sliderssss</label>          
+          <slider name="Slider"/>
+        </boxthing>
+        
+        <check name="Check">
+          <label lang="EN">Checkerssss</label>
+        </check>
+        <boxthing>
+          <label lang="EN">Combossssss</label>
+          <combo name="Combo" />
+        </boxthing>
       </vertical>
     </tab>
 	</program>

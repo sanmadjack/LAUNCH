@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="GuiBuilders\IBoxThing.cs" />
     <Compile Include="GuiBuilders\IResolution.cs" />
     <Compile Include="IBuildableGui.cs" />
     <Compile Include="GuiBuilders\ITabs.cs" />

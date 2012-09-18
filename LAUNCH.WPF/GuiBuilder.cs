@@ -16,6 +16,13 @@ namespace LAUNCH {
         protected override ICombo CreateComboObject() {
             return new Combo();
         }
+        protected override ISlider CreateSliderObject() {
+            return new Slider();
+        }
+
+        protected override IBoxThing CreateBoxThingObject() {
+            return new BoxThing();
+        }
 
         protected override IResolution CreateResolutionObject() {
             return new Resolution();

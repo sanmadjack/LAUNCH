@@ -9,14 +9,13 @@ namespace LAUNCH {
         private XmlFile xml;
         //		private XmlHandler xml;
 
-        private List<XmlNode> profiles;
+        private List<XmlElement> profiles;
 
         private IWindow window;
         private ICombo profile_combo;
         private ITabs tabs;
 
         private Dictionary<String, IElement> all_elements;
-
         public static string FetchLabel(XmlElement ele) {
             foreach (XmlElement child in ele.ChildNodes) {
                 if (child.Name == "label") {
@@ -38,7 +37,7 @@ namespace LAUNCH {
             profile_combo = window.ProfileCombo;
             tabs = window.Tabs;
 
-            profiles = new List<XmlNode>();
+            profiles = new List<XmlElement>();
 
 
             profile_combo.AddItem("Please Select A Game");
@@ -67,12 +66,12 @@ namespace LAUNCH {
 
             tabs.clearTabs();
 
-            XmlNode blueprint = profiles[((ICombo)sender).ActiveIndex - 1];
+            XmlElement blueprint = profiles[((ICombo)sender).ActiveIndex - 1];
 
             foreach (XmlElement node in blueprint.ChildNodes) {
                 if (node.Name != "tab")
                     continue;
-                tabs.addNewTab(FetchLabel(node), recursiveBuilder(node.FirstChild));
+                tabs.addNewTab(FetchLabel(node),  recursiveBuilder(node.ChildNodes[1] as XmlElement));
             }
 
 
@@ -80,18 +79,20 @@ namespace LAUNCH {
 
         }
 
-        private IElement recursiveBuilder(XmlNode blueprint) {
+        private IElement recursiveBuilder(XmlElement blueprint) {
             IElement return_me;
 
             switch (blueprint.Name) {
-                case "columns":
+                case "vertical":
                     return_me = CreateVerticalObject();
                     break;
-                case "rows":
-                    return_me = CreateVerticalObject();
+                case "boxthing":
+                    return_me = createBoxThing(blueprint);
                     break;
                 case "resolution_combo":
                     return createResolutionCombo(blueprint);
+                case "slider":
+                    return createSlider(blueprint);
                 case "combo":
                     return createCombo(blueprint);
                 case "check":
@@ -102,20 +103,29 @@ namespace LAUNCH {
                     throw new Exception("Name name " + blueprint.Name + " not recognized");
             }
 
-            foreach (XmlNode sub_node in blueprint.ChildNodes) {
+            foreach (XmlElement sub_node in blueprint.ChildNodes) {
                 IElement ele = recursiveBuilder(sub_node);
                 if(ele!=null)
                     ((IContainer)return_me).addItem(ele);
             }
+
+            if (blueprint.HasAttribute("name")) {
+                if (all_elements.ContainsKey(blueprint.Attributes["name"].Value)) {
+                    throw new Exception("Duplicate widget name " + blueprint.Attributes["name"].Value);
+                }
+
+                all_elements.Add(blueprint.Attributes["name"].Value, return_me);
+            }
+
             return return_me;
         }
 
-        private IResolution createResolutionCombo(XmlNode node) {
+        private IResolution createResolutionCombo(XmlElement node) {
             IResolution return_me = CreateResolutionObject();
             return return_me;
         }
 
-        private ICombo createCombo(XmlNode node) {
+        private ICombo createCombo(XmlElement node) {
             ICombo return_me = CreateComboObject();
             int i = 0;
             foreach (XmlElement sub_node in node.ChildNodes) {
@@ -130,17 +140,29 @@ namespace LAUNCH {
             return return_me;
         }
 
-        private ICheck createCheck(XmlNode node) {
+        private ICheck createCheck(XmlElement node) {
             ICheck return_me = CreateCheckObject();
-            return_me.Title = node.Attributes["title"].Value;
+            return_me.Title = FetchLabel(node);
+            return return_me;
+        }
+        private ISlider createSlider(XmlElement node) {
+            ISlider return_me = CreateSliderObject();
+//            return_me.Title = node.Attributes["title"].Value;
+            return return_me;
+        }
+
+        private IBoxThing createBoxThing(XmlElement node) {
+            IBoxThing return_me = CreateBoxThingObject();
+            return_me.Header = FetchLabel(node);
             return return_me;
         }
 
         protected abstract IResolution CreateResolutionObject();
         protected abstract ICombo CreateComboObject();
+        protected abstract ISlider CreateSliderObject();
         protected abstract ICheck CreateCheckObject();
         protected abstract IVertical CreateVerticalObject();
-
+        protected abstract IBoxThing CreateBoxThingObject();
     }
 }
 
