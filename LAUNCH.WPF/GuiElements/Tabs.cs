@@ -6,6 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 namespace LAUNCH.WPF {
     class Tabs: TabControl, ITabs {
+        public Tabs() {
+        }
+
 
         public void clearTabs() {
 
@@ -15,8 +18,11 @@ namespace LAUNCH.WPF {
             if (element == null)
                 throw new ArgumentNullException("Element is null, fucker! What the fuck!");
 
-            UIElement uie = element as UIElement;
-            this.AddChild(element);
+            TabItem item = new TabItem();
+            item.Content = element;
+            item.Header = name;
+
+            this.AddChild(item);
 
             this.TabIndex = 0;
 

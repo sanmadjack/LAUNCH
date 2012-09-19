@@ -2,19 +2,23 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:LAUNCH.WPF"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <l:Tabs x:Name="mainTabs" Grid.Row="0" Grid.Column="0">
+        <l:Tabs x:Name="mainTabs" Grid.Row="0" Grid.Column="0" TabStripPlacement="Left">
             
         </l:Tabs>
         <GroupBox Grid.Column="0" Grid.Row="1" Header="Choose Profile">
-        <l:Combo x:Name="profileCombo">
-            
-        </l:Combo>
+            <l:Combo x:Name="profileCombo">
+
+            </l:Combo>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Arg list">
+            <l:TextBox x:Name="ArgOutput" IsReadOnly="True" />
         </GroupBox>
     </Grid>
 </Window>

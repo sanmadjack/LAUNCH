@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace LAUNCH {
-    public interface IResolution : IWidget {
+    public interface IWidget: IElement {
+        event EventHandler Changed;
     }
 }

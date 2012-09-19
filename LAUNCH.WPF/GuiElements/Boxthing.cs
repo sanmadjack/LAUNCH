@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Controls;
 namespace LAUNCH.WPF {
     class BoxThing: GroupBox, IBoxThing {
+
         public new string Header {
             get {
                 return base.Header.ToString();

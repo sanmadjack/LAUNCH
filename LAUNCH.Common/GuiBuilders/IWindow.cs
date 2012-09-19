@@ -5,6 +5,7 @@ namespace LAUNCH
 	{
         ITabs Tabs { get; }
         ICombo ProfileCombo { get; }
+        ITextBox ArgDisplay { get; }
 		void Refresh();
 	}
 }

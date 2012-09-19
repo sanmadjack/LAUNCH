@@ -5,17 +5,16 @@ using System.Text;
 using System.Windows.Controls;
 namespace LAUNCH.WPF {
     class Combo: ComboBox, ICombo {
+        public event EventHandler Changed;
 
         public Combo() {
             this.SelectionChanged += new SelectionChangedEventHandler(Combo_SelectionChanged);
         }
 
         void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (this.selectionChanged != null)
-                this.selectionChanged(this, e);
+            if (this.Changed != null)
+                this.Changed(this, e);
         }
-
-        public event EventHandler selectionChanged;
 
         public int ActiveIndex {
             get {
@@ -28,6 +27,8 @@ namespace LAUNCH.WPF {
 
         public string ActiveText {
             get {
+                if (this.SelectedItem == null)
+                    return null;
                 return this.SelectedItem.ToString();
             }
         }

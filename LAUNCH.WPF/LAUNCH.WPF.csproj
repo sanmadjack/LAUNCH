@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GuiElements\Boxthing.cs" />
+    <Compile Include="GuiElements\TextBox.cs" />
     <Compile Include="Vertical.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

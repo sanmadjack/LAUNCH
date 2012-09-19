@@ -19,6 +19,13 @@ namespace LAUNCH.WPF {
     public partial class MainWindow : Window, IWindow {
         private GuiBuilder gui;
 
+        public ITextBox ArgDisplay {
+            get {
+                return ArgOutput;
+            }
+        }
+
+
         public ITabs Tabs {
             get {
                 return mainTabs;

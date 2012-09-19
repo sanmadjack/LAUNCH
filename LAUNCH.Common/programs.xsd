@@ -69,9 +69,16 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="resolution" type="widget" />
+  <xs:element name="colordepth" type="widget" />
+  
   <xs:element name="slider" type="widget" />
   <xs:element name="check" type="labelled_widget" />
   <xs:element name="combo" type="widget" />
+
+  <xs:element name="file" type="widget" />
+  <xs:element name="folder" type="widget" />
+
 
   <!-- Element groups -->
   <xs:group name="widgets">
@@ -81,7 +88,11 @@
       <xs:element ref="horizontal" />
       <xs:element ref="slider" />
       <xs:element ref="check" />
+      <xs:element ref="colordepth" />
+      <xs:element ref="resolution" />
       <xs:element ref="combo" />
+      <xs:element ref="file" />
+      <xs:element ref="folder" />
     </xs:choice>
   </xs:group>
 
@@ -97,8 +108,10 @@
   </xs:complexType>
 
   <xs:complexType name="widget" >
-      <xs:attribute ref="name" use="optional" />
-    </xs:complexType>
+    <xs:attribute ref="name" use="optional" />
+    <xs:attribute ref="switch" use="required" />
+    <xs:attribute ref="only_if_set" use="optional" default="false" />
+  </xs:complexType>
 
 
   <xs:complexType name="single_item_container">
@@ -134,8 +147,8 @@
   
   <!-- Attributes -->
   <xs:attribute name="name" type="safestring"/>
-  
-  
+  <xs:attribute name="switch" type="xs:string"/>
+  <xs:attribute name="only_if_set" type="xs:boolean" />
   <!-- Attribute groups -->
   
   

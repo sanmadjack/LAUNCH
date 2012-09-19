@@ -54,14 +54,15 @@ namespace LAUNCH {
                 }
             }
 
-            profile_combo.selectionChanged += HandleProfile_comboselectionChanged;
+            profile_combo.Changed += HandleProfile_comboselectionChanged;
 
             window.Refresh();
         }
 
 
-
+        SwitchManager Switches;
         void HandleProfile_comboselectionChanged(object sender, EventArgs e) {
+            Switches = new SwitchManager(window.ArgDisplay);
             all_elements = new Dictionary<string, IElement>();
 
             tabs.clearTabs();
@@ -73,8 +74,6 @@ namespace LAUNCH {
                     continue;
                 tabs.addNewTab(FetchLabel(node),  recursiveBuilder(node.ChildNodes[1] as XmlElement));
             }
-
-
 
 
         }
@@ -90,32 +89,45 @@ namespace LAUNCH {
                     return_me = createBoxThing(blueprint);
                     break;
                 case "resolution_combo":
-                    return createResolutionCombo(blueprint);
+                    return_me =  createResolutionCombo(blueprint);
+                    break;
                 case "slider":
-                    return createSlider(blueprint);
+                    return_me =  createSlider(blueprint);
+                    break;
                 case "combo":
-                    return createCombo(blueprint);
+                    return_me =  createCombo(blueprint);
+                    break;
                 case "check":
-                    return createCheck(blueprint);
+                    return_me =  createCheck(blueprint);
+                    break;
+                case "file":
+                    return_me = createCombo(blueprint);
+                    break;
                 case "label":
                     return null;
                 default:
                     throw new Exception("Name name " + blueprint.Name + " not recognized");
             }
 
-            foreach (XmlElement sub_node in blueprint.ChildNodes) {
-                IElement ele = recursiveBuilder(sub_node);
-                if(ele!=null)
-                    ((IContainer)return_me).addItem(ele);
-            }
-
             if (blueprint.HasAttribute("name")) {
                 if (all_elements.ContainsKey(blueprint.Attributes["name"].Value)) {
                     throw new Exception("Duplicate widget name " + blueprint.Attributes["name"].Value);
                 }
-
                 all_elements.Add(blueprint.Attributes["name"].Value, return_me);
             }
+
+            if (blueprint.HasAttribute("switch")) {
+                Switches.AddSwitch(blueprint, return_me as IWidget);
+            }
+
+            if (return_me is IContainer) {
+                foreach (XmlElement sub_node in blueprint.ChildNodes) {
+                    IElement ele = recursiveBuilder(sub_node);
+                    if (ele != null)
+                        ((IContainer)return_me).addItem(ele);
+                }
+            }
+
 
             return return_me;
         }

@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="programs.xsd">
+  <program name="d2x-xl">
+    <label lang="EN">d2x-xl</label>
+    <tab name="video">
+      <label lang="EN">Video</label>
+      <vertical>
+        <check name="fullscreen" switch="-fullscreen ${bool}" only_if_set="true">
+          <label lang="EN">Fullsreen</label>
+        </check>
+      </vertical>
+    </tab>
+      <tab name="customization">
+        <label lang="EN">Customization</label>
+        <vertical>
+          <boxthing>
+            <label lang="EN">Alternate Menu Background</label>
+            <vertical>
+              <file name="altBgName" switch="-altBgName ${file}"/>
+              <check name="altBgGrayScale" switch="-altBgGrayScale ${int}">
+                <label lang="EN">Convert To Grayscale</label>
+              </check>
+            </vertical>
+          </boxthing>
+          <boxthing>
+            <label lang="EN">Menu Background Brightness</label>
+            <slider name="altBgBrightness" switch="-altBgBrightness ${value}"/>
+          </boxthing>
+          <boxthing>
+            <label lang="EN">Menu Background Transparency</label>
+            <slider name="altBgAlpha" switch="-altBgAlpha ${value}"/>
+          </boxthing>
+        </vertical>
+    </tab>
+  </program>
+  
 	<program name="fs2_open">
 		<label lang="EN">Freespace 2 SCP</label>
 		<tab name="video">
@@ -7,20 +41,22 @@
       <vertical>
         <boxthing>
           <label lang="EN">Sliderssss</label>          
-          <slider name="Slider"/>
+          <slider name="Slider" switch="test"/>
         </boxthing>
         
-        <check name="Check">
+        <check name="Check" switch="test">
           <label lang="EN">Checkerssss</label>
         </check>
         <boxthing>
           <label lang="EN">Combossssss</label>
-          <combo name="Combo" />
+          <combo name="Combo" switch="test" />
         </boxthing>
       </vertical>
     </tab>
 	</program>
 </programs>
+
+
 <!--
 <games>
 	<game name="fs2_open" title="Freespace 2 SCP">

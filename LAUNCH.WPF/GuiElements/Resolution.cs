@@ -5,5 +5,6 @@ using System.Text;
 
 namespace LAUNCH.WPF {
     class Resolution: Slider, IResolution {
+        //public event EventHandler Changed;
     }
 }
