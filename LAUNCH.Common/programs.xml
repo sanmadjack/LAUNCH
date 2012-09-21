@@ -10,6 +10,28 @@
         </check>
       </vertical>
     </tab>
+    <tab name="music">
+      <label lang="EN">Music</label>
+      <vertical>
+        <boxthing>
+          <label lang="EN">Custom Intro Song</label>
+          <file name="introsong" switch="-introsong ${file}"/>
+        </boxthing>
+        <boxthing>
+          <label lang="EN">Custom Briefing Song</label>
+          <file name="briefingsong" switch="-briefingsong ${file}"/>
+        </boxthing>
+        <boxthing>
+          <label lang="EN">Custom Credits Song</label>
+          <file name="creditssong" switch="-creditssong ${file}"/>
+        </boxthing>
+        <boxthing>
+          <label lang="EN">Custom Level Playlist</label>
+          <file name="playlist" switch="-playlist ${file}"/>
+        </boxthing>
+
+      </vertical>
+    </tab>
       <tab name="customization">
         <label lang="EN">Customization</label>
         <vertical>
@@ -24,11 +46,11 @@
           </boxthing>
           <boxthing>
             <label lang="EN">Menu Background Brightness</label>
-            <slider name="altBgBrightness" switch="-altBgBrightness ${value}"/>
+            <slider name="altBgBrightness" switch="-altBgBrightness ${value}" min="0" max="1" increment="0.01" default="1"/>
           </boxthing>
           <boxthing>
             <label lang="EN">Menu Background Transparency</label>
-            <slider name="altBgAlpha" switch="-altBgAlpha ${value}"/>
+            <slider name="altBgAlpha" switch="-altBgAlpha ${value}" min="0" max="1" increment="0.01" default="1"/>
           </boxthing>
         </vertical>
     </tab>
@@ -41,7 +63,7 @@
       <vertical>
         <boxthing>
           <label lang="EN">Sliderssss</label>          
-          <slider name="Slider" switch="test"/>
+          <slider name="Slider" switch="test" min="0" max="1" increment="0.01" default="1"/>
         </boxthing>
         
         <check name="Check" switch="test">

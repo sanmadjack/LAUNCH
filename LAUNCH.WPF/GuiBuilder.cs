@@ -31,5 +31,9 @@ namespace LAUNCH {
         protected override IVertical CreateVerticalObject() {
             return new Vertical();
         }
+
+        protected override IFile CreateFileObject() {
+            return new File(this.window);
+        }
     }
 }

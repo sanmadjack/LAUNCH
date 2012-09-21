@@ -7,6 +7,7 @@ namespace LAUNCH
          double Max { get; set; }
          double Min { get; set; }
          double Increment { get; set; }
+         bool NumberVisible { get; set; }
     }
 }
 

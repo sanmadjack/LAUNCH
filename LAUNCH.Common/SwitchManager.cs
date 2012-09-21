@@ -20,6 +20,12 @@ namespace LAUNCH {
         private string processSwitch(IWidget element) {
             Switch arg = Switches[element];
             Dictionary<string,string> vars = new Dictionary<string,string>();
+            if (element is IFile) {
+                IFile file = element as IFile;
+                if (file.SelectedFile == "")
+                    return "";
+                vars.Add("file", file.SelectedFile);
+            } else 
             if (element is IResolution) {
                 throw new NotSupportedException(element.GetType().Name);
             } else if (element is ICheck) {

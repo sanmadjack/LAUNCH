@@ -54,20 +54,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="GuiBuilders\IBoxThing.cs" />
-    <Compile Include="GuiBuilders\IResolution.cs" />
-    <Compile Include="GuiBuilders\ITextBox.cs" />
-    <Compile Include="GuiBuilders\IWidget.cs" />
+    <Compile Include="Interfaces\IBoxThing.cs" />
+    <Compile Include="Interfaces\IFile.cs" />
+    <Compile Include="Interfaces\IResolution.cs" />
+    <Compile Include="Interfaces\ITextBox.cs" />
+    <Compile Include="Interfaces\IWidget.cs" />
     <Compile Include="IBuildableGui.cs" />
-    <Compile Include="GuiBuilders\ITabs.cs" />
-    <Compile Include="GuiBuilders\IWindow.cs" />
-    <Compile Include="GuiBuilders\ICombo.cs" />
-    <Compile Include="GuiBuilders\ICheck.cs" />
-    <Compile Include="GuiBuilders\ISlider.cs" />
-    <Compile Include="GuiBuilders\IVertical.cs" />
-    <Compile Include="GuiBuilders\AGuiBuilder.cs" />
-    <Compile Include="GuiBuilders\IContainer.cs" />
-    <Compile Include="GuiBuilders\IElement.cs" />
+    <Compile Include="Interfaces\ITabs.cs" />
+    <Compile Include="Interfaces\IWindow.cs" />
+    <Compile Include="Interfaces\ICombo.cs" />
+    <Compile Include="Interfaces\ICheck.cs" />
+    <Compile Include="Interfaces\ISlider.cs" />
+    <Compile Include="Interfaces\IVertical.cs" />
+    <Compile Include="AGuiBuilder.cs" />
+    <Compile Include="Interfaces\IContainer.cs" />
+    <Compile Include="Interfaces\IElement.cs" />
     <Compile Include="Switch.cs" />
     <Compile Include="SwitchManager.cs" />
   </ItemGroup>

@@ -71,12 +71,35 @@
 
   <xs:element name="resolution" type="widget" />
   <xs:element name="colordepth" type="widget" />
+
+  <xs:element name="slider">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="widget">
+          <xs:attribute name="min" use="required" type="xs:double"/>
+          <xs:attribute name="max" use="required" type="xs:double"/>
+          <xs:attribute name="increment" use="required" type="xs:double"/>
+          <xs:attribute name="default" use="required" type="xs:double"/>
+          <xs:attribute name="show_number" use="optional" type="xs:boolean"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   
-  <xs:element name="slider" type="widget" />
   <xs:element name="check" type="labelled_widget" />
+
+  <xs:element name="file">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="widget">
+          <xs:attribute name="extension" use="optional" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
   <xs:element name="combo" type="widget" />
 
-  <xs:element name="file" type="widget" />
   <xs:element name="folder" type="widget" />
 
 

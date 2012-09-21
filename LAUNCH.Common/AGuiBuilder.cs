@@ -11,7 +11,7 @@ namespace LAUNCH {
 
         private List<XmlElement> profiles;
 
-        private IWindow window;
+        protected IWindow window;
         private ICombo profile_combo;
         private ITabs tabs;
 
@@ -26,6 +26,7 @@ namespace LAUNCH {
         }
 
         protected AGuiBuilder(IWindow window) {
+            window.Title = "LAUNCH";
             //			xml = new XmlHandler(System.IO.Directory.GetCurrentDirectory(),"games.xml");
 
             FileInfo progfile = new FileInfo("programs.xml");
@@ -65,9 +66,11 @@ namespace LAUNCH {
             Switches = new SwitchManager(window.ArgDisplay);
             all_elements = new Dictionary<string, IElement>();
 
-            tabs.clearTabs();
+            window.ClearTabs();
 
             XmlElement blueprint = profiles[((ICombo)sender).ActiveIndex - 1];
+
+            window.Title = window.ProfileCombo.ActiveText;
 
             foreach (XmlElement node in blueprint.ChildNodes) {
                 if (node.Name != "tab")
@@ -101,7 +104,7 @@ namespace LAUNCH {
                     return_me =  createCheck(blueprint);
                     break;
                 case "file":
-                    return_me = createCombo(blueprint);
+                    return_me = createFile(blueprint);
                     break;
                 case "label":
                     return null;
@@ -137,6 +140,13 @@ namespace LAUNCH {
             return return_me;
         }
 
+        private IFile createFile(XmlElement node) {
+            IFile file = CreateFileObject();
+
+
+            return file;
+        }
+
         private ICombo createCombo(XmlElement node) {
             ICombo return_me = CreateComboObject();
             int i = 0;
@@ -159,6 +169,13 @@ namespace LAUNCH {
         }
         private ISlider createSlider(XmlElement node) {
             ISlider return_me = CreateSliderObject();
+            Dictionary<string, string> attrs = GetAttributes(node, "max", "min", "increment","default");
+            return_me.Max = Double.Parse(attrs["max"]);
+            return_me.Min = Double.Parse(attrs["min"]);
+            return_me.Increment = Double.Parse(attrs["increment"]);
+            return_me.Value = Double.Parse(attrs["default"]);
+
+
 //            return_me.Title = node.Attributes["title"].Value;
             return return_me;
         }
@@ -169,6 +186,26 @@ namespace LAUNCH {
             return return_me;
         }
 
+        private Dictionary<string, string> GetAttributes(XmlElement element, params string[] names_array) {
+            Dictionary<string, string> return_me = new Dictionary<string, string>();
+            IList<string> names = names_array as IList<string>;
+            foreach (XmlAttribute attr in element.Attributes) {
+                switch (attr.Name) {
+                    case "name":
+                    case "switch":
+                    case "only_if_set":
+                        continue;
+                }
+                if (names.Count == 0 || names.Contains(attr.Name)) {
+                    return_me.Add(attr.Name,attr.Value);
+                } else {
+                    throw new NotSupportedException(attr.Name);
+                }
+            }
+            return return_me;
+        }
+
+        protected abstract IFile CreateFileObject();
         protected abstract IResolution CreateResolutionObject();
         protected abstract ICombo CreateComboObject();
         protected abstract ISlider CreateSliderObject();

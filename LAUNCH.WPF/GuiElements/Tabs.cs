@@ -10,9 +10,6 @@ namespace LAUNCH.WPF {
         }
 
 
-        public void clearTabs() {
-
-        }
 
         public void addNewTab(String name, IElement element) {
             if (element == null)

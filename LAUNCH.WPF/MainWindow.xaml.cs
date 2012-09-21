@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Windows.Forms;
 namespace LAUNCH.WPF {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -48,10 +48,43 @@ namespace LAUNCH.WPF {
             gui = new GuiBuilder(this);
         }
 
+        public void ClearTabs() {
+
+        }
 
         public void Refresh() {
             this.UpdateLayout();
         }
 
+        public string SelectFile() {
+            OpenFileDialog file = new OpenFileDialog();
+
+            if (file.ShowDialog(this.GetIWin32Window()) == System.Windows.Forms.DialogResult.OK) {
+                return file.FileName;
+            }
+            return null;
+        }
+
+        #region stuff for interacting with windows.forms controls
+        // Ruthlessly stolen from http://stackoverflow.com/questions/315164/how-to-use-a-folderbrowserdialog-from-a-wpf-application
+        public System.Windows.Forms.IWin32Window GetIWin32Window() {
+            var source = System.Windows.PresentationSource.FromVisual(this) as System.Windows.Interop.HwndSource;
+            System.Windows.Forms.IWin32Window win = new OldWindow(source.Handle);
+            return win;
+        }
+
+        private class OldWindow : System.Windows.Forms.IWin32Window {
+            private readonly System.IntPtr _handle;
+            public OldWindow(System.IntPtr handle) {
+                _handle = handle;
+            }
+
+            #region IWin32Window Members
+            System.IntPtr System.Windows.Forms.IWin32Window.Handle {
+                get { return _handle; }
+            }
+            #endregion
+        }
+        #endregion
     }
 }
