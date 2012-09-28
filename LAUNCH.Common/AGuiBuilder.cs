@@ -194,6 +194,7 @@ namespace LAUNCH {
                     case "name":
                     case "switch":
                     case "only_if_set":
+                    case "only_if_not_default":
                         continue;
                 }
                 if (names.Count == 0 || names.Contains(attr.Name)) {
@@ -204,6 +205,7 @@ namespace LAUNCH {
             }
             return return_me;
         }
+
 
         protected abstract IFile CreateFileObject();
         protected abstract IResolution CreateResolutionObject();

@@ -9,7 +9,6 @@ namespace LAUNCH {
 
         }
 
-
         protected override ICheck CreateCheckObject() {
             return new Check();
         }

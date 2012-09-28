@@ -22,6 +22,16 @@ namespace LAUNCH.WPF {
             }
         }
 
+        public new string ToolTip {
+            get {
+                return this.ToolTip;
+            }
+            set {
+                this.ToolTip = value;
+            }
+        }
+
+
         public event EventHandler Changed;
         public Check() {
             this.Click += new System.Windows.RoutedEventHandler(Check_Click);

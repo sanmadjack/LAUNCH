@@ -8,15 +8,45 @@ namespace LAUNCH {
 
         private string DaSwitch;
         public bool OnlyIfSet = false;
+        public bool OnlyIfNotDefault = false;
+
+        public string Default = null;
 
         public Switch(XmlElement element) {
-            DaSwitch = element.GetAttribute("switch");
-            if (element.HasAttribute("only_if_set")) {
-                OnlyIfSet = bool.Parse(element.GetAttribute("only_if_set"));
+            foreach(XmlAttribute attr in element.Attributes) {
+                switch(attr.Name) {
+                    case "switch":
+                        DaSwitch = attr.Value;
+                        break;
+                    case "only_if_set":
+                        OnlyIfSet = bool.Parse(attr.Value);
+                        break;
+                    case "only_if_not_default":
+                        OnlyIfNotDefault = bool.Parse(attr.Value);
+                        break;
+                    case "default":
+                        Default = attr.Value;
+                        break;
+                }
             }
         }
 
+
+        public bool MatchesDefault(object value) {
+            if(value==null)
+                return Default==null;
+
+            return value.ToString() == Default;
+        }
         public string Interpret(Dictionary<string,string> values) {
+            if (OnlyIfNotDefault) {
+                if (values.ContainsKey("value")) {
+                    if (MatchesDefault(values["value"])) {
+                        return "";
+                    }
+                }
+            }
+
             if (values.Count == 0 && OnlyIfSet)
                 return "";
 
@@ -28,6 +58,7 @@ namespace LAUNCH {
                     output.Replace(var, value);
                 }
             }
+
             output.Append(" ");
             return output.ToString();
         }

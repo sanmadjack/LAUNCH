@@ -9,6 +9,15 @@ namespace LAUNCH.WPF {
         System.Windows.Controls.Slider slider = new System.Windows.Controls.Slider();
         Label label = new Label();
 
+        public new string ToolTip {
+            get {
+                return this.ToolTip;
+            }
+            set {
+                this.ToolTip = value;
+            }
+        }
+
 
         public double Increment {
             get {

@@ -18,25 +18,26 @@ namespace LAUNCH {
 
 
         private string processSwitch(IWidget element) {
-            Switch arg = Switches[element];
+            Switch daswitch = Switches[element];
             Dictionary<string,string> vars = new Dictionary<string,string>();
             if (element is IFile) {
                 IFile file = element as IFile;
                 if (file.SelectedFile == "")
                     return "";
                 vars.Add("file", file.SelectedFile);
-            } else 
-            if (element is IResolution) {
+            } else if (element is IResolution) {
                 throw new NotSupportedException(element.GetType().Name);
             } else if (element is ICheck) {
                 ICheck check = element as ICheck;
                 if (check.Checked) {
+                    vars.Add("value", "true");
                     vars.Add("bool", "true");
                     vars.Add("yesno", "yes");
                     vars.Add("int", "1");
                 } else {
-                    if (arg.OnlyIfSet)
+                    if (daswitch.OnlyIfSet)
                         return "";
+                    vars.Add("value", "false");
                     vars.Add("bool", "false");
                     vars.Add("yesno", "no");
                     vars.Add("int", "0");
@@ -52,7 +53,7 @@ namespace LAUNCH {
                 throw new NotSupportedException(element.GetType().Name);
             }
 
-            return arg.Interpret(vars);
+            return daswitch.Interpret(vars);
         }
 
         private Dictionary<IWidget, Switch> Switches = new Dictionary<IWidget, Switch>();

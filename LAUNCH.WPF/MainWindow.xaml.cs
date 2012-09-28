@@ -49,7 +49,7 @@ namespace LAUNCH.WPF {
         }
 
         public void ClearTabs() {
-
+            mainTabs.Items.Clear();
         }
 
         public void Refresh() {

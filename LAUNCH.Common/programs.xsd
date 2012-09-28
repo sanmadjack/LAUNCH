@@ -102,7 +102,6 @@
 
   <xs:element name="folder" type="widget" />
 
-
   <!-- Element groups -->
   <xs:group name="widgets">
     <xs:choice>
@@ -134,6 +133,7 @@
     <xs:attribute ref="name" use="optional" />
     <xs:attribute ref="switch" use="required" />
     <xs:attribute ref="only_if_set" use="optional" default="false" />
+    <xs:attribute ref="only_if_not_default" use="optional" default="false" />
   </xs:complexType>
 
 
@@ -172,6 +172,7 @@
   <xs:attribute name="name" type="safestring"/>
   <xs:attribute name="switch" type="xs:string"/>
   <xs:attribute name="only_if_set" type="xs:boolean" />
+  <xs:attribute name="only_if_not_default" type="xs:boolean" />
   <!-- Attribute groups -->
   
   

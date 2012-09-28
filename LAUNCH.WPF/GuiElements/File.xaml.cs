@@ -22,6 +22,16 @@ namespace LAUNCH.WPF {
         public event EventHandler Changed;
 
 
+        public new string ToolTip {
+            get {
+                return this.ToolTip;
+            }
+            set {
+                this.ToolTip = value;
+            }
+        }
+
+
         public File(IWindow window) {
             InitializeComponent();
             parentWindow = window;

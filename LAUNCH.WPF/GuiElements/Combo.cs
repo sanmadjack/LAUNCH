@@ -16,6 +16,16 @@ namespace LAUNCH.WPF {
                 this.Changed(this, e);
         }
 
+        public new string ToolTip {
+            get {
+                return this.ToolTip;
+            }
+            set {
+                this.ToolTip = value;
+            }
+        }
+
+
         public int ActiveIndex {
             get {
                 return this.SelectedIndex;

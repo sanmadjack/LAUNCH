@@ -5,10 +5,19 @@
     <tab name="video">
       <label lang="EN">Video</label>
       <vertical>
-        <check name="fullscreen" switch="-fullscreen ${bool}" only_if_set="true">
+        <check name="fullscreen" switch="-fullscreen" only_if_set="true">
           <label lang="EN">Fullsreen</label>
         </check>
+        <check name="use_shaders" switch="-use_shaders ${int}">
+          <label lang="EN">Use shader programs</label>
+        </check>
       </vertical>
+    </tab>    
+    <tab name="audio">
+      <label lang="EN">Audio</label>
+      <check name="midifix" switch="-midifix" only_if_set="true">
+        <label lang="EN">Unlink midi and effect volume</label>
+      </check>
     </tab>
     <tab name="music">
       <label lang="EN">Music</label>
@@ -29,7 +38,6 @@
           <label lang="EN">Custom Level Playlist</label>
           <file name="playlist" switch="-playlist ${file}"/>
         </boxthing>
-
       </vertical>
     </tab>
       <tab name="customization">
@@ -39,20 +47,41 @@
             <label lang="EN">Alternate Menu Background</label>
             <vertical>
               <file name="altBgName" switch="-altBgName ${file}"/>
-              <check name="altBgGrayScale" switch="-altBgGrayScale ${int}">
+              <check name="altBgGrayScale" switch="-altBgGrayScale ${int}" only_if_set="true">
                 <label lang="EN">Convert To Grayscale</label>
               </check>
             </vertical>
           </boxthing>
           <boxthing>
             <label lang="EN">Menu Background Brightness</label>
-            <slider name="altBgBrightness" switch="-altBgBrightness ${value}" min="0" max="1" increment="0.01" default="1"/>
+            <slider name="altBgBrightness" switch="-altBgBrightness ${value}" min="0" max="1" increment="0.01" default="1" only_if_not_default="true"/>
           </boxthing>
           <boxthing>
             <label lang="EN">Menu Background Transparency</label>
-            <slider name="altBgAlpha" switch="-altBgAlpha ${value}" min="0" max="1" increment="0.01" default="1"/>
+            <slider name="altBgAlpha" switch="-altBgAlpha ${value}" min="0" max="1" increment="0.01" default="1" only_if_not_default="true"/>
           </boxthing>
         </vertical>
+    </tab>
+    <tab name="etc">
+      <label lang="EN">Other</label>
+      <check name="check_setup" switch="-check_setup" only_if_set="true">
+        <label lang="EN">Check whether all files are present and copy them to their proper subfolders</label>
+      </check>
+      <check name="revert_demos" switch="-revert_demos" only_if_set="true">
+        <label lang="EN">Convert demo files from the new D2X-XL format to the Descent 2 legacy format during playback</label>
+      </check>
+      <check name="altLanguage" switch="-altLanguage ${int}" only_if_set="true">
+        <label lang="EN">Use alternative language file 'descent.tex'</label>
+      </check>
+      <boxthing>
+        <label lang="EN">Auto-Demo</label>
+        <vertical>
+        <check name="autodemo" switch="-autodemo" only_if_set="true">
+          <label lang="EN">Run descent.dem after program, or the demo stored in:</label>
+        </check>
+        <file name="autodemo" switch="-autodemo ${file}"/>
+        </vertical>
+      </boxthing>
     </tab>
   </program>
   
