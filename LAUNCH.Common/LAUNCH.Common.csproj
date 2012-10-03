@@ -54,8 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Enums\Alignment.cs" />
+    <Compile Include="Enums\FontWeight.cs" />
     <Compile Include="Interfaces\IBoxThing.cs" />
     <Compile Include="Interfaces\IFile.cs" />
+    <Compile Include="Interfaces\ILabel.cs" />
     <Compile Include="Interfaces\IResolution.cs" />
     <Compile Include="Interfaces\ITextBox.cs" />
     <Compile Include="Interfaces\IWidget.cs" />
@@ -69,7 +72,9 @@
     <Compile Include="AGuiBuilder.cs" />
     <Compile Include="Interfaces\IContainer.cs" />
     <Compile Include="Interfaces\IElement.cs" />
-    <Compile Include="Switch.cs" />
+    <Compile Include="ProgramBinary.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Switches\ASwitch.cs" />
     <Compile Include="SwitchManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -34,6 +34,7 @@ namespace LAUNCH.WPF {
 
         public event EventHandler Changed;
         public Check() {
+            this.Margin = new System.Windows.Thickness(3);
             this.Click += new System.Windows.RoutedEventHandler(Check_Click);
         }
 

@@ -9,6 +9,12 @@ namespace LAUNCH {
 
         }
 
+        protected override ITextBox CreateTextBoxObject() {
+            return new TextBox();
+        }
+        protected override ILabel CreateLabelObject() {
+            return new Label();
+        }
         protected override ICheck CreateCheckObject() {
             return new Check();
         }

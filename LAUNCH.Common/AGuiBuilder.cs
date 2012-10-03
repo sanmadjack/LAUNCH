@@ -13,7 +13,11 @@ namespace LAUNCH {
 
         protected IWindow window;
         private ICombo profile_combo;
-        private ITabs tabs;
+
+        ProgramBinary binary;
+        Settings settings;
+
+        public bool UnsavedChanges { get { return settings.UnsavedChanges; } }
 
         private Dictionary<String, IElement> all_elements;
         public static string FetchLabel(XmlElement ele) {
@@ -25,8 +29,25 @@ namespace LAUNCH {
             return ele.GetAttribute("name");
         }
 
+
+        private void SaveSettings() {
+            settings.Save();
+        }
+
+        public void Apply() {
+            SaveSettings();
+        }
+
+
+        public void Run() {
+            SaveSettings();
+
+            window.AddTab("Output",CreateOutputTab(""));
+        }
+
         protected AGuiBuilder(IWindow window) {
             window.Title = "LAUNCH";
+
             //			xml = new XmlHandler(System.IO.Directory.GetCurrentDirectory(),"games.xml");
 
             FileInfo progfile = new FileInfo("programs.xml");
@@ -36,7 +57,6 @@ namespace LAUNCH {
             this.window = window;
 
             profile_combo = window.ProfileCombo;
-            tabs = window.Tabs;
 
             profiles = new List<XmlElement>();
 
@@ -60,22 +80,84 @@ namespace LAUNCH {
             window.Refresh();
         }
 
+        private IElement CreateStartupTab(XmlElement blueprint) {
+            string name = blueprint.GetAttribute("name");
+
+            IVertical vert = CreateVerticalObject();
+
+            ILabel label = CreateLabelObject();
+            label.Text = FetchLabel(blueprint);
+            label.Alignment = Alignment.Center;
+            label.FontSize = 24;
+            vert.addItem(label);
+
+
+            IBoxThing box = CreateBoxThingObject();
+            IFile file = CreateFileObject();
+            file.Name = "executable";
+            vert.addItem(box);
+            box.Header = "Game Executable";
+            box.addItem(file);
+
+
+            box = CreateBoxThingObject();
+            box.Header = "Game Command";
+            ITextBox text = CreateTextBoxObject();
+            box.addItem(text);
+            vert.addItem(box);
+
+            Switches = new SwitchManager(text);
+
+
+            settings = new Settings(name, Switches);
+
+            settings.AddWidget(file);
+
+            binary = new ProgramBinary(file, Switches);
+
+            return vert;
+        }
+
+
+        private IElement CreateOutputTab(string output) {
+            IBoxThing box = CreateBoxThingObject();
+
+            ITextBox text = CreateTextBoxObject();
+            text.Text = output;
+            text.MultiLine = true;
+            box.addItem(text);
+
+            return box;
+        }
+
+        void file_Changed(object sender, EventArgs e) {
+            throw new NotImplementedException();
+        }
 
         SwitchManager Switches;
         void HandleProfile_comboselectionChanged(object sender, EventArgs e) {
-            Switches = new SwitchManager(window.ArgDisplay);
+            if (((ICombo)sender).ActiveIndex == 0) {
+                window.ClearTabs();
+                return;
+            }
+
+
             all_elements = new Dictionary<string, IElement>();
 
             window.ClearTabs();
 
+
             XmlElement blueprint = profiles[((ICombo)sender).ActiveIndex - 1];
+
+            window.AddTab("Startup", CreateStartupTab(blueprint));
+
 
             window.Title = window.ProfileCombo.ActiveText;
 
             foreach (XmlElement node in blueprint.ChildNodes) {
                 if (node.Name != "tab")
                     continue;
-                tabs.addNewTab(FetchLabel(node),  recursiveBuilder(node.ChildNodes[1] as XmlElement));
+                window.AddTab(FetchLabel(node), recursiveBuilder(node.ChildNodes[1] as XmlElement));
             }
 
 
@@ -113,14 +195,19 @@ namespace LAUNCH {
             }
 
             if (blueprint.HasAttribute("name")) {
-                if (all_elements.ContainsKey(blueprint.Attributes["name"].Value)) {
-                    throw new Exception("Duplicate widget name " + blueprint.Attributes["name"].Value);
+                string name = blueprint.Attributes["name"].Value;
+                return_me.Name = name;
+                if (all_elements.ContainsKey(name)) {
+                    throw new Exception("Duplicate widget name " + name);
                 }
-                all_elements.Add(blueprint.Attributes["name"].Value, return_me);
+                all_elements.Add(name, return_me);
             }
 
             if (blueprint.HasAttribute("switch")) {
                 Switches.AddSwitch(blueprint, return_me as IWidget);
+            }
+            if (return_me is IWidget) {
+                this.settings.AddWidget(return_me as IWidget);
             }
 
             if (return_me is IContainer) {
@@ -214,6 +301,8 @@ namespace LAUNCH {
         protected abstract ICheck CreateCheckObject();
         protected abstract IVertical CreateVerticalObject();
         protected abstract IBoxThing CreateBoxThingObject();
+        protected abstract ILabel CreateLabelObject();
+        protected abstract ITextBox CreateTextBoxObject();
     }
 }
 

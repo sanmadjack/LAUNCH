@@ -11,21 +11,5 @@ namespace LAUNCH.WPF {
 
 
 
-        public void addNewTab(String name, IElement element) {
-            if (element == null)
-                throw new ArgumentNullException("Element is null, fucker! What the fuck!");
-
-            TabItem item = new TabItem();
-            item.Content = element;
-            item.Header = name;
-
-            this.AddChild(item);
-
-            this.TabIndex = 0;
-
-        }
-
-
-
     }
 }

@@ -19,18 +19,7 @@ namespace LAUNCH.WPF {
     public partial class MainWindow : Window, IWindow {
         private GuiBuilder gui;
 
-        public ITextBox ArgDisplay {
-            get {
-                return ArgOutput;
-            }
-        }
 
-
-        public ITabs Tabs {
-            get {
-                return mainTabs;
-            }
-        }
         public ICombo ProfileCombo {
             get {
                 return profileCombo;
@@ -48,22 +37,53 @@ namespace LAUNCH.WPF {
             gui = new GuiBuilder(this);
         }
 
-        public void ClearTabs() {
-            mainTabs.Items.Clear();
-        }
 
         public void Refresh() {
             this.UpdateLayout();
         }
 
         public string SelectFile() {
+            return SelectFile(null);
+        }
+
+        public string SelectFile(string open_dir) {
             OpenFileDialog file = new OpenFileDialog();
+
+            if (open_dir != null)
+                file.InitialDirectory = open_dir;
 
             if (file.ShowDialog(this.GetIWin32Window()) == System.Windows.Forms.DialogResult.OK) {
                 return file.FileName;
             }
             return null;
         }
+
+
+        #region Stuff for tabs
+        public void ClearTabs() {
+            mainTabs.Visibility = System.Windows.Visibility.Collapsed;
+            ButtonGrid.Visibility = System.Windows.Visibility.Collapsed;
+            mainTabs.Items.Clear();
+        }
+
+
+        public void AddTab(String name, IElement element) {
+            if (element == null)
+                throw new ArgumentNullException("Element is null, fucker! What the fuck!");
+            mainTabs.Visibility = System.Windows.Visibility.Visible;
+            ButtonGrid.Visibility = System.Windows.Visibility.Visible;
+
+            TabItem item = new TabItem();
+            item.Content = element;
+            item.Header = name;
+
+            mainTabs.Items.Add(item);
+
+            mainTabs.TabIndex = 0;
+
+        }
+        #endregion
+
 
         #region stuff for interacting with windows.forms controls
         // Ruthlessly stolen from http://stackoverflow.com/questions/315164/how-to-use-a-folderbrowserdialog-from-a-wpf-application
@@ -86,5 +106,49 @@ namespace LAUNCH.WPF {
             #endregion
         }
         #endregion
+
+        private void ApplyButton_Click(object sender, RoutedEventArgs e) {
+            gui.Apply();
+        }
+
+        private void RunButton_Click(object sender, RoutedEventArgs e) {
+            gui.Run();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e) {
+            this.Close();
+        }
+
+        private bool CheckForunsavedChanges() {
+            if (gui!=null&&gui.UnsavedChanges) {
+                switch (
+                System.Windows.MessageBox.Show(this, "There are unsaved changes, would you like to apply them before closing?", "Hold on a sec", MessageBoxButton.YesNoCancel, MessageBoxImage.Question)
+                ) {
+                    case MessageBoxResult.Yes:
+                        gui.Apply();
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    case MessageBoxResult.Cancel:
+                        return false;
+                }
+            }
+            return true;
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            e.Cancel = !CheckForunsavedChanges();
+        }
+
+
+        private void profileCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!CheckForunsavedChanges()) {
+
+            }
+
+        }
+
+
     }
 }

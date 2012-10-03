@@ -2,23 +2,36 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:LAUNCH.WPF"
-        Title="MainWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="MainWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Background="WhiteSmoke" MinWidth="400" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <l:Tabs x:Name="mainTabs" Grid.Row="0" Grid.Column="0" TabStripPlacement="Left">
-            
+        <l:Tabs x:Name="mainTabs" Grid.Row="1" Grid.Column="0" TabStripPlacement="Left" Visibility="Collapsed" Margin="3">
         </l:Tabs>
-        <GroupBox Grid.Column="0" Grid.Row="1" Header="Choose Profile">
-            <l:Combo x:Name="profileCombo">
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Choose Game" Margin="3,1,3,3">
+            <l:Combo x:Name="profileCombo" SelectionChanged="profileCombo_SelectionChanged">
 
             </l:Combo>
         </GroupBox>
-        <GroupBox Grid.Column="0" Grid.Row="2" Header="Arg list">
-            <l:TextBox x:Name="ArgOutput" IsReadOnly="True" />
-        </GroupBox>
+        <Grid Grid.Column="0" Grid.Row="2" Name="ButtonGrid" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="1" Margin="3" Padding="2" Name="ApplyButton" Click="ApplyButton_Click">
+                Apply
+            </Button>
+            <Button Grid.Row="0" Grid.Column="2" Margin="3" Padding="2" Name="RunButton" Click="RunButton_Click">
+                Run
+            </Button>
+            <Button Grid.Row="0" Grid.Column="3" Margin="3" Padding="2" Name="CancelButton" Click="CancelButton_Click">
+                Cancel
+            </Button>
+        </Grid>
     </Grid>
 </Window>

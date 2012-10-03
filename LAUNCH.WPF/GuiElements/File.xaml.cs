@@ -48,6 +48,9 @@ namespace LAUNCH.WPF {
             get {
                 return txt.Text;
             }
+            set {
+                txt.Text = value;
+            }
         }
 
         private void Image_ImageFailed(object sender, ExceptionRoutedEventArgs e) {
@@ -55,7 +58,14 @@ namespace LAUNCH.WPF {
         }
 
         private void btn_Click(object sender, RoutedEventArgs e) {
-            string file =             parentWindow.SelectFile();
+            string file;
+            if(txt.Text!=null&&txt.Text!="") {
+                file = parentWindow.SelectFile(System.IO.Path.GetDirectoryName(txt.Text));
+            } else {
+                file = parentWindow.SelectFile();
+            }
+
+
             if (file != null) {
                 txt.Text = file;
             }

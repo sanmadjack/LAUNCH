@@ -60,7 +60,9 @@
     <Compile Include="GuiElements\File.xaml.cs">
       <DependentUpon>File.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GuiElements\Label.cs" />
     <Compile Include="GuiElements\TextBox.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="Vertical.cs" />
     <Page Include="GuiElements\File.xaml">
       <SubType>Designer</SubType>

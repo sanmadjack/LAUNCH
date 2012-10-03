@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 namespace LAUNCH {
-    public class SwitchManager {
+    class SwitchManager {
+
         public String Args {
             get {
                 StringBuilder arg_string = new StringBuilder();
@@ -57,7 +58,6 @@ namespace LAUNCH {
         }
 
         private Dictionary<IWidget, Switch> Switches = new Dictionary<IWidget, Switch>();
-
         ITextBox Output;
         public SwitchManager(ITextBox output) {
             Output = output;
@@ -76,7 +76,6 @@ namespace LAUNCH {
 
         public void RefreshArgs() {
             Output.Text = this.Args;
-
         }
     }
 }
