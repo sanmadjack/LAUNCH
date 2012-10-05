@@ -1,43 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="programs.xsd">
-  
+
+  <program name="dir">
+    <label lang="EN">dir (Test)</label>
+    <tab name="options">
+      <label lang="EN">Options</label>
+      <vertical>
+        <check name="bare_format">
+          <label lang="EN">Uses bare format (no heading information or summary).</label>
+          <switch only_if_set="true">/A</switch>
+        </check>
+      </vertical>
+    </tab>
+  </program>
   <program name="d2x-xl">
     <label lang="EN">d2x-xl</label>
     <tab name="video">
       <label lang="EN">Video</label>
       <vertical>
-        <check name="fullscreen" switch="-fullscreen" only_if_set="true">
+        <check name="fullscreen">
           <label lang="EN">Fullsreen</label>
+          <switch only_if_set="true">-fullscreen</switch>
         </check>
-        <check name="use_shaders" switch="-use_shaders ${int}">
+        <check name="use_shaders">
           <label lang="EN">Use shader programs</label>
+          <switch>-use_shaders ${int}</switch>
         </check>
       </vertical>
     </tab>    
     <tab name="audio">
       <label lang="EN">Audio</label>
-      <check name="midifix" switch="-midifix" only_if_set="true">
-        <label lang="EN">Unlink midi and effect volume</label>
-      </check>
+      <vertical>
+        <check name="midifix">
+          <label lang="EN">Unlink midi and effect volume</label>
+          <switch only_if_set="true">-midifix</switch>
+        </check>
+      </vertical>
     </tab>
     <tab name="music">
       <label lang="EN">Music</label>
       <vertical>
         <boxthing>
           <label lang="EN">Custom Intro Song</label>
-          <file name="introsong" switch="-introsong ${file}"/>
+          <file name="introsong">
+            <switch>-introsong ${file}</switch>
+          </file>
         </boxthing>
         <boxthing>
           <label lang="EN">Custom Briefing Song</label>
-          <file name="briefingsong" switch="-briefingsong ${file}"/>
+          <file name="briefingsong">
+            <switch>-briefingsong ${file}</switch>
+          </file>
         </boxthing>
         <boxthing>
           <label lang="EN">Custom Credits Song</label>
-          <file name="creditssong" switch="-creditssong ${file}"/>
+          <file name="creditssong">
+            <switch>-creditssong ${file}</switch>
+          </file>
         </boxthing>
         <boxthing>
           <label lang="EN">Custom Level Playlist</label>
-          <file name="playlist" switch="-playlist ${file}"/>
+          <file name="playlist">
+            <switch>-playlist ${file}</switch>
+          </file>
         </boxthing>
       </vertical>
     </tab>
@@ -47,42 +72,57 @@
           <boxthing>
             <label lang="EN">Alternate Menu Background</label>
             <vertical>
-              <file name="altBgName" switch="-altBgName ${file}"/>
-              <check name="altBgGrayScale" switch="-altBgGrayScale ${int}" only_if_set="true">
+              <file name="altBgName">
+                <switch>-altBgName ${file}</switch>
+              </file>
+              <check name="altBgGrayScale">
                 <label lang="EN">Convert To Grayscale</label>
+                <switch only_if_set="true">-altBgGrayScale ${int}</switch>
               </check>
             </vertical>
           </boxthing>
           <boxthing>
             <label lang="EN">Menu Background Brightness</label>
-            <slider name="altBgBrightness" switch="-altBgBrightness ${value}" min="0" max="1" increment="0.01" default="1" only_if_not_default="true"/>
+            <slider name="altBgBrightness" min="0" max="1" increment="0.01" default="1">
+              <switch only_if_not_default="true">-altBgBrightness ${value}</switch>
+            </slider>
           </boxthing>
           <boxthing>
             <label lang="EN">Menu Background Transparency</label>
-            <slider name="altBgAlpha" switch="-altBgAlpha ${value}" min="0" max="1" increment="0.01" default="1" only_if_not_default="true"/>
+            <slider name="altBgAlpha" min="0" max="1" increment="0.01" default="1">
+              <switch only_if_not_default="true">-altBgAlpha ${value}</switch>
+            </slider>
           </boxthing>
         </vertical>
     </tab>
     <tab name="etc">
       <label lang="EN">Other</label>
-      <check name="check_setup" switch="-check_setup" only_if_set="true">
+      <vertical>
+      <check name="check_setup">
         <label lang="EN">Check whether all files are present and copy them to their proper subfolders</label>
+        <switch only_if_set="true">-check_setup</switch>
       </check>
-      <check name="revert_demos" switch="-revert_demos" only_if_set="true">
+      <check name="revert_demos">
         <label lang="EN">Convert demo files from the new D2X-XL format to the Descent 2 legacy format during playback</label>
+        <switch only_if_set="true">-revert_demos</switch>
       </check>
-      <check name="altLanguage" switch="-altLanguage ${int}" only_if_set="true">
+      <check name="altLanguage">
         <label lang="EN">Use alternative language file 'descent.tex'</label>
+        <switch only_if_set="true">-altLanguage ${int}</switch>
       </check>
       <boxthing>
         <label lang="EN">Auto-Demo</label>
         <vertical>
-        <check name="autodemo" switch="-autodemo" only_if_set="true">
-          <label lang="EN">Run descent.dem after program, or the demo stored in:</label>
-        </check>
-        <file name="autodemo" switch="-autodemo ${file}"/>
+          <check name="autodemo">
+            <label lang="EN">Run descent.dem after program, or the demo stored in:</label>
+            <switch only_if_set="true">-autodemo</switch>
+          </check>
+          <file name="autodemo">
+            <switch>-autodemo ${file}</switch>
+          </file>
         </vertical>
       </boxthing>
+      </vertical>
     </tab>
   </program>
   
@@ -92,16 +132,21 @@
       <label lang="EN">Video</label>
       <vertical>
         <boxthing>
-          <label lang="EN">Sliderssss</label>          
-          <slider name="Slider" switch="test" min="0" max="1" increment="0.01" default="1"/>
+          <label lang="EN">Sliderssss</label>
+          <slider name="Slider" min="0" max="1" increment="0.01" default="1">
+            <switch>test</switch>
+          </slider>
         </boxthing>
         
-        <check name="Check" switch="test">
+        <check name="Check">
           <label lang="EN">Checkerssss</label>
+          <switch>test</switch>
         </check>
         <boxthing>
           <label lang="EN">Combossssss</label>
-          <combo name="Combo" switch="test" />
+          <combo name="Combo">
+            <switch>test</switch>
+          </combo>
         </boxthing>
       </vertical>
     </tab>

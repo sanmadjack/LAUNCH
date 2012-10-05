@@ -25,5 +25,40 @@ namespace LAUNCH.WPF {
                 Changed(this, e);
             }
         }
+
+        public bool MultiLine {
+            get {
+                return base.AcceptsReturn;
+            }
+            set {
+                base.AcceptsReturn = value;
+            }
+        }
+
+        public bool Scrolling {
+            get {
+                return base.HorizontalScrollBarVisibility== System.Windows.Controls.ScrollBarVisibility.Auto;
+            }
+            set {
+                if (value) {
+                    base.HorizontalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Auto;
+                    base.VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Auto;
+                } else {
+                    base.HorizontalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Disabled;
+                    base.VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Disabled;
+                }
+            }
+        }
+
+        public bool ReadOnly {
+            get {
+                return base.IsReadOnly;
+            }
+            set {
+                base.IsReadOnly = value;
+                base.IsReadOnlyCaretVisible = value;
+            }
+        }
+
     }
 }

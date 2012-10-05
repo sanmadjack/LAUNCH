@@ -20,7 +20,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="label" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="tab" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element ref="tab" minOccurs="1" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute ref="name" use="required"/>
     </xs:complexType>
@@ -46,8 +46,8 @@
   <xs:element name="label">
     <xs:complexType>
       <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute name="lang" use="required"/>
+        <xs:extension base="nonemptystring">
+          <xs:attribute name="lang" use="required" type="xs:string"/>
         </xs:extension>
       </xs:simpleContent>
     </xs:complexType>
@@ -97,6 +97,18 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="switch">
+    <xs:complexType>
+    <xs:simpleContent>
+      <xs:extension base="nonemptystring">
+        <xs:attribute name="order" type="xs:integer" />
+        <xs:attribute name="only_if_set" use="optional" default="false" type="xs:boolean" />
+        <xs:attribute name="only_if_not_default" use="optional" default="false" type="xs:boolean" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  </xs:element>
   
   <xs:element name="combo" type="widget" />
 
@@ -119,21 +131,19 @@
   </xs:group>
 
 <!-- types -->
-  <xs:complexType name="labelled_widget">
-    <xs:complexContent>
-      <xs:extension base="widget">
-        <xs:sequence>
-          <xs:element ref="label" minOccurs="1" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="widget" >
+  <xs:complexType name="labelled_widget" >
+    <xs:sequence>
+      <xs:element ref="label" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element ref="switch" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
     <xs:attribute ref="name" use="optional" />
-    <xs:attribute ref="switch" use="required" />
-    <xs:attribute ref="only_if_set" use="optional" default="false" />
-    <xs:attribute ref="only_if_not_default" use="optional" default="false" />
+  </xs:complexType>
+  
+  <xs:complexType name="widget" >
+    <xs:sequence>
+      <xs:element ref="switch" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute ref="name" use="optional" />
   </xs:complexType>
 
 
@@ -170,9 +180,6 @@
   
   <!-- Attributes -->
   <xs:attribute name="name" type="safestring"/>
-  <xs:attribute name="switch" type="xs:string"/>
-  <xs:attribute name="only_if_set" type="xs:boolean" />
-  <xs:attribute name="only_if_not_default" type="xs:boolean" />
   <!-- Attribute groups -->
   
   

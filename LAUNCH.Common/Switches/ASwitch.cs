@@ -13,11 +13,9 @@ namespace LAUNCH {
         public string Default = null;
 
         public Switch(XmlElement element) {
+            DaSwitch = element.InnerText;
             foreach(XmlAttribute attr in element.Attributes) {
                 switch(attr.Name) {
-                    case "switch":
-                        DaSwitch = attr.Value;
-                        break;
                     case "only_if_set":
                         OnlyIfSet = bool.Parse(attr.Value);
                         break;
@@ -27,6 +25,8 @@ namespace LAUNCH {
                     case "default":
                         Default = attr.Value;
                         break;
+                    default:
+                        throw new NotSupportedException(attr.Name);
                 }
             }
         }

@@ -17,7 +17,13 @@ namespace LAUNCH {
         ProgramBinary binary;
         Settings settings;
 
-        public bool UnsavedChanges { get { return settings.UnsavedChanges; } }
+        public bool UnsavedChanges { 
+            get {
+                if (settings == null)
+                    return false;
+                return settings.UnsavedChanges; 
+            }
+        }
 
         private Dictionary<String, IElement> all_elements;
         public static string FetchLabel(XmlElement ele) {
@@ -103,6 +109,7 @@ namespace LAUNCH {
             box = CreateBoxThingObject();
             box.Header = "Game Command";
             ITextBox text = CreateTextBoxObject();
+            text.ReadOnly = true;
             box.addItem(text);
             vert.addItem(box);
 
@@ -203,8 +210,11 @@ namespace LAUNCH {
                 all_elements.Add(name, return_me);
             }
 
-            if (blueprint.HasAttribute("switch")) {
-                Switches.AddSwitch(blueprint, return_me as IWidget);
+            foreach (XmlNode node in blueprint.ChildNodes) {
+                if (node.Name == "switch") {
+                    Switches.AddSwitch(node as XmlElement, return_me as IWidget);
+                    break;
+                }
             }
             if (return_me is IWidget) {
                 this.settings.AddWidget(return_me as IWidget);
